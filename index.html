@@ -1,491 +1,428 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies">
-  <meta name="keywords" content="Vision-Language-Action, Camera Robustness, Cross-View Consistency, Robot Learning">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cross-View Action Consistency for Camera-Robust VLA Policies</title>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
-
   <style>
-    .results-table {
-      font-size: 0.95rem;
+    /* ── Reset & base ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      color: #1a1a1a;
+      background: #fff;
     }
-    .results-table th {
-      background-color: #f5f5f5;
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout helpers ─────────────────────────────────────── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 56px 0; }
+    section + section { border-top: 1px solid #e5e7eb; }
+
+    /* ── Header / hero ──────────────────────────────────────── */
+    header {
+      background: #fafafa;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 52px 0 40px;
+      text-align: center;
     }
-    .results-table tr.proposed {
-      background-color: #fffde7;
-      font-weight: bold;
+    header .venue {
+      font-size: 14px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: #6b7280; margin-bottom: 16px;
     }
-    .results-table tr.ours {
-      background-color: #f3f9f3;
+    header h1 {
+      font-size: clamp(22px, 3.5vw, 34px); font-weight: 700;
+      line-height: 1.25; max-width: 780px; margin: 0 auto 24px;
     }
-    .method-box {
-      background: #f8f9fa;
-      border-left: 4px solid #3273dc;
-      padding: 1rem 1.5rem;
-      margin: 1rem 0;
-      border-radius: 0 4px 4px 0;
+    .authors { font-size: 16px; color: #374151; margin-bottom: 10px; }
+    .affiliation { font-size: 14px; color: #6b7280; margin-bottom: 28px; }
+    .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 6px; font-size: 14px; font-weight: 600;
+      border: 1.5px solid #d1d5db; background: #fff; color: #374151;
+      transition: background .15s, border-color .15s;
     }
-    .highlight-num {
-      color: #3273dc;
-      font-weight: bold;
+    .btn:hover { background: #f3f4f6; text-decoration: none; border-color: #9ca3af; }
+    .btn.primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .btn.primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+
+    /* ── Section titles ─────────────────────────────────────── */
+    h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; color: #111; }
+    h3 { font-size: 17px; font-weight: 600; margin: 24px 0 10px; color: #1a1a1a; }
+
+    /* ── Video placeholder ──────────────────────────────────── */
+    .video-placeholder {
+      background: #111827; border-radius: 10px; overflow: hidden;
+      aspect-ratio: 16/9; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      color: #9ca3af; font-size: 15px; margin: 0 auto; max-width: 840px;
     }
-    .leaderboard-badge {
-      display: inline-block;
-      background: #3273dc;
-      color: white;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-left: 6px;
+    .video-placeholder svg { opacity: .5; }
+    .video-placeholder p { opacity: .7; }
+
+    /* ── Abstract ───────────────────────────────────────────── */
+    .abstract-box {
+      background: #f9fafb; border-left: 4px solid #2563eb;
+      border-radius: 0 8px 8px 0; padding: 24px 28px;
+      font-size: 16px; line-height: 1.75;
     }
+
+    /* ── Figures ────────────────────────────────────────────── */
+    figure { margin: 28px 0; text-align: center; }
+    figure img {
+      max-width: 100%; border-radius: 6px; border: 1px solid #e5e7eb;
+    }
+    figcaption {
+      margin-top: 10px; font-size: 14px; color: #6b7280; line-height: 1.55;
+      max-width: 680px; margin-left: auto; margin-right: auto;
+    }
+    .fig-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 28px 0;
+    }
+    @media (max-width: 640px) { .fig-row { grid-template-columns: 1fr; } }
+
+    /* ── Results table ──────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin: 24px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+    thead tr { background: #f3f4f6; }
+    th {
+      padding: 9px 12px; text-align: left; font-weight: 600; color: #374151;
+      border-bottom: 2px solid #d1d5db; white-space: nowrap;
+    }
+    td { padding: 8px 12px; border-bottom: 1px solid #e5e7eb; color: #1a1a1a; }
+    tr:last-child td { border-bottom: none; }
+    .proposed-row td { background: #eff6ff; font-weight: 600; }
+    .sep-row td { border-top: 2px solid #d1d5db; }
+    td.best { color: #1d4ed8; }
+
+    /* ── Insight cards ──────────────────────────────────────── */
+    .insight-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px; margin-top: 20px;
+    }
+    .insight-card {
+      background: #f9fafb; border: 1px solid #e5e7eb;
+      border-radius: 8px; padding: 18px 20px;
+    }
+    .insight-card .num {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: #2563eb; margin-bottom: 6px;
+    }
+    .insight-card p { font-size: 14.5px; line-height: 1.6; color: #374151; }
+    .insight-card strong { color: #111; }
+
+    /* ── BibTeX ─────────────────────────────────────────────── */
+    pre.bibtex {
+      background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 20px 22px; font-size: 13px; line-height: 1.65;
+      overflow-x: auto; color: #374151;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer {
+      background: #f9fafb; border-top: 1px solid #e5e7eb;
+      text-align: center; padding: 28px 24px;
+      font-size: 13px; color: #6b7280;
+    }
+
+    /* ── Callout ────────────────────────────────────────────── */
+    .callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: #eff6ff; border: 1px solid #bfdbfe;
+      border-radius: 8px; padding: 16px 20px; margin: 20px 0;
+      font-size: 15px; color: #1e40af; line-height: 1.6;
+    }
+    .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
   </style>
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+<!-- ═══════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="container">
+    <p class="venue">CoRL 2026 Submission</p>
+    <h1>Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies</h1>
+    <p class="authors">Anonymous Author(s)</p>
+    <p class="affiliation">Anonymous Institution</p>
+    <div class="btn-group">
+      <a class="btn primary" href="#">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+        Paper (coming soon)
+      </a>
+      <a class="btn" href="https://github.com/anonymous0311/cross-view-action-consistency-corl-anonymous" target="_blank" rel="noopener">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        Code (Anonymous)
+      </a>
+      <a class="btn" href="#">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+        Data (coming soon)
+      </a>
     </div>
   </div>
-</nav>
+</header>
 
+<!-- ═══════════════════════════════════════════════════════════
+     VIDEO PLACEHOLDER
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="video-placeholder">
+      <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/>
+      </svg>
+      <p>Video coming soon</p>
+    </div>
+  </div>
+</section>
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Anonymous Authors</span>
-          </div>
+<!-- ═══════════════════════════════════════════════════════════
+     TEASER
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <figure>
+      <img src="static/images/teaser.png" alt="Teaser figure">
+      <figcaption>Camera viewpoint shifts can cause a VLA policy to produce different actions from the same physical state. We train on action-equivalent views so that different views of the same state are supervised by the same demonstrated action and regularized to produce consistent action-flow predictions. At inference, the policy receives only a single RGB scene image (held-out from training), a language instruction, and proprioceptive state.</figcaption>
+    </figure>
+  </div>
+</section>
 
-          <div class="is-size-6 publication-authors" style="margin-top: 0.4rem; color: #7a7a7a;">
-            <span>Anonymous Institution</span>
-          </div>
+<!-- ═══════════════════════════════════════════════════════════
+     ABSTRACT
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Abstract</h2>
+    <div class="abstract-box">
+      Vision-language-action (VLA) policies fine-tuned from a fixed scene camera can fail when the camera is moved, even when the task, objects, language, and robot state are unchanged. We study scene-camera viewpoint robustness under a strict deployment interface: a single scene RGB image, language, and proprioception, with no camera label, extrinsics, depth, point cloud, wrist image, or multi-view input. For flow-based VLAs, we propose to regularize the action-flow velocity field across action-equivalent views. We construct action-equivalent view pairs by resetting original LIBERO demonstrations to the same MuJoCo state and rendering nominal and perturbed scene-camera views. Both views are supervised by flow matching, while a cross-view loss encourages their predicted action-flow velocities to agree at the same sampled flow coordinates.
+      <br><br>
+      On the LIBERO-Plus camera-perturbation track (4,797 trials), our method reaches <strong>87.2 ± 0.4%</strong> over three seeds, +7.7 pp over flow-matching-only training on the same paired data and +12.5 pp over naive mixed-camera SFT, while preserving nominal-camera in-distribution performance (95.0 ± 0.8%). A shuffled-pair control collapses to 25.8%, showing that the gain depends on action-equivalent pairing.
+    </div>
+  </div>
+</section>
 
-          <div class="column has-text-centered" style="margin-top: 1rem;">
-            <div class="publication-links">
-              <!-- PDF Link (anonymous). -->
-              <span class="link-block">
-                <a href="./static/paper.pdf"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <!-- Code Link (anonymous). -->
-              <span class="link-block">
-                <a href="https://github.com/anonymous0311/cross-view-action-consistency-vla"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
+<!-- ═══════════════════════════════════════════════════════════
+     METHOD
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Method: Cross-View Action-Flow Consistency</h2>
+    <figure>
+      <img src="static/images/method.png" alt="Method diagram">
+      <figcaption>During training, an action-equivalent nominal/perturbed view pair is processed by weight-shared VLA forward passes. Both views remain supervised by the standard flow-matching objective, while a cross-view loss encourages their action-flow predictions to agree at the same sampled flow coordinates. The pair is used only during training; inference uses a single RGB scene image, language instruction, and proprioceptive state.</figcaption>
+    </figure>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="num">Key idea 1</div>
+        <p><strong>Action-flow consistency, not feature matching.</strong> The cross-view loss acts on the velocity field rather than a hidden feature. Feature agreement does not guarantee action agreement, while final-action matching would entangle velocity disagreement with integration effects.</p>
+      </div>
+      <div class="insight-card">
+        <div class="num">Key idea 2</div>
+        <p><strong>Bilateral gradient flow.</strong> Both the nominal and perturbed branch receive the cross-view gradient, mutually pulling their predictions toward a shared view-invariant action-flow space. One-sided stop-gradient gives weaker robustness.</p>
+      </div>
+      <div class="insight-card">
+        <div class="num">Key idea 3</div>
+        <p><strong>Action-equivalent pairing is load-bearing.</strong> Shuffling the pairing keeps per-view flow-matching labels correct but destroys state–action correspondence inside the cross-view term. The shuffled control collapses to 25.8%, isolating matched pairing as the mechanism.</p>
+      </div>
+      <div class="insight-card">
+        <div class="num">Key idea 4</div>
+        <p><strong>Zero inference overhead.</strong> The paired structure is used only at training time. The deployed policy is identical to the base VLA: one RGB scene image + language + proprioception — no camera labels, depth, or multi-view input.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN RESULTS
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Simulation Results on LIBERO-Plus</h2>
 
-<!-- Teaser / Demo Video -->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- Replace src below with your teaser mp4 once ready -->
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4" type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
-        The <em>same robot policy</em> evaluated under three camera perturbation conditions
-        (distance C1, spherical position C2, orientation C3). Our method achieves
-        <span class="highlight-num">86.9%</span> on LIBERO-Plus — <span class="leaderboard-badge">#2 Leaderboard</span>
-      </h2>
-    </div>
-  </div>
-</section>
-
-
-<!-- Rollout video carousel -->
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item">
-          <video poster="" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/rollout_c1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item">
-          <video poster="" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/rollout_c2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item">
-          <video poster="" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/rollout_c3.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item">
-          <video poster="" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/rollout_id.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Abstract -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Vision-Language-Action (VLA) policies trained on demonstrations from a fixed camera depend
-            brittly on the camera that observes the scene at deployment. We propose to regularize the
-            action-flow field directly, using <em>action-equivalent multi-view pair data</em>: two
-            observations of the same physical state with shared language, proprioception, and
-            demonstrated action.
-          </p>
-          <p>
-            We introduce <strong>Multi-Sample Bilateral Cross-View Action-Flow Consistency with
-            Action-Biased Time Sampling</strong>: for each pair, <em>K</em> = 2 flow-time and noise
-            samples are drawn with <em>t</em> &sim; Beta(2, 3) to concentrate supervision in the
-            action-near regime, the action-flow field is evaluated on both views, and the two
-            predictions are pulled toward each other by a bilateral cross-view loss in which both
-            branches receive gradient (no stop-gradient on either side), while standard flow matching
-            is preserved on both views. A natural-looking stop-gradient asymmetric variant turns out
-            to regress deployment robustness: it lets the nominal branch escape the mutual constraint
-            and the perturbed branch chase a moving target, which we record as an ablation.
-          </p>
-          <p>
-            A mechanism analysis shows that the matched bilateral cross-view loss upper-bounds the
-            action divergence between deployed nominal- and perturbed-view trajectories, while a
-            shuffled-pair variant carries no view-disagreement signal; the corresponding shuffled-pair
-            ablation confirms this prediction empirically. The deployed policy receives only a single
-            RGB scene image, a language instruction, and a proprioceptive robot state (the wrist
-            channel is masked throughout to make the scene-view robustness claim well-defined).
-          </p>
-          <p>
-            Our method achieves <strong>86.9%</strong> on the LIBERO-Plus camera-perturbation track
-            (4,170 / 4,797, Wilson 95% CI [85.9, 87.9]), outperforming the strongest zero-shot
-            transfer baseline (&pi;<sub>0.5</sub> at 75.8%, ACoT-VLA at 72.6%) by more than 11pp,
-            and outperforming a naive-mixing baseline trained on the LIBERO-Plus public training
-            distribution (74.7%) by +12.2pp &mdash; the central evidence that action-equivalent
-            cross-view consistency provides a mechanism beyond raw camera-augmented training data.
-            Methods reporting higher camera-track scores rely on architectural changes or
-            LIBERO-Plus-augmented supervised fine-tuning; our contribution is the consistency
-            mechanism, which preserves the single-view inference contract. We also report a
-            synchronized multi-camera real-robot evaluation.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Method -->
-<section class="section" style="background-color: #fafafa;">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Method</h2>
-
-    <div class="content has-text-justified">
-      <p>
-        Standard VLA training produces a policy that maps a single observation
-        (RGB scene image, language instruction, proprioception) to a distribution over action chunks
-        via a learned action-flow field. When the camera viewpoint changes at deployment, the
-        same physical state produces a different image, and the unregularized flow field may produce
-        a different action. We address this directly.
-      </p>
+    <div class="callout">
+      <span class="callout-icon">🏆</span>
+      <span>Our method reaches <strong>87.2 ± 0.4%</strong> on the LIBERO-Plus camera-perturbation track (3 seeds), ranking <strong>#2 on the public leaderboard</strong> — the only project with two methods in the top 5.</span>
     </div>
 
-    <!-- Method figure placeholder -->
-    <div class="columns is-centered" style="margin-bottom: 1.5rem;">
-      <div class="column is-full-width has-text-centered">
-        <img src="./static/images/method_overview.png"
-             alt="Method overview diagram"
-             style="max-width: 90%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
-        <p class="is-size-6" style="margin-top: 0.6rem; color: #666;">
-          Figure 1: Multi-Sample Bilateral Cross-View Action-Flow Consistency.
-          For each same-state nominal/perturbed view pair, K=2 flow-time/noise samples are drawn;
-          the action-flow predictions from both views are pulled toward each other by a bilateral
-          loss (both branches receive gradient), while standard flow matching is preserved.
-        </p>
-      </div>
-    </div>
+    <figure>
+      <img src="static/images/main_sim.png" alt="Main simulation results">
+      <figcaption>LIBERO-Plus camera-perturbation track success rates. Error bars show Wilson 95% CI (single-seed rows) or seed standard deviation (proposed, 3 seeds). The proposed method improves +7.7 pp over FM-only on the same pair data and +12.5 pp over naive mixed-camera SFT.</figcaption>
+    </figure>
 
-    <div class="method-box">
-      <p><strong>Core objective.</strong>
-        For a same-state view pair (o<sub>a</sub>, o<sub>b</sub>) with shared language
-        <em>l</em>, proprioception <em>q</em>, and demonstrated action <em>a</em>:
-      </p>
-      <p style="text-align:center; font-family: monospace; margin: 0.8rem 0;">
-        &Lscr;<sub>total</sub> = &Lscr;<sub>FM</sub>(o<sub>a</sub>) + &Lscr;<sub>FM</sub>(o<sub>b</sub>) + &lambda; &middot; &Lscr;<sub>CV</sub>
-      </p>
-      <p>
-        where &Lscr;<sub>CV</sub> = (1/K) &sum;<sub>k</sub> ||v<sub>&theta;</sub>(x<sub>t</sub>, t | o<sub>a</sub>, l, q) &minus;
-        v<sub>&theta;</sub>(x<sub>t</sub>, t | o<sub>b</sub>, l, q)||<sup>2</sup>
-        with t &sim; Beta(2, 3) and no stop-gradient on either branch.
-      </p>
-    </div>
-
-    <div class="content" style="margin-top:1.5rem;">
-      <h3 class="title is-4">Key design choices</h3>
-      <ul>
-        <li>
-          <strong>Bilateral gradient (no stop-gradient).</strong> Both views are mutually constrained.
-          Stop-gradient on one branch (asymmetric) lets that branch over-specialize to action-fitting
-          without view-invariance pressure and causes the other to chase a moving target
-          — our B6 ablation regresses full LIBERO-Plus by 0.6pp despite improving in-distribution accuracy.
-        </li>
-        <li>
-          <strong>Action-biased time sampling</strong> [Beta(2, 3) vs. legacy Beta(1.5, 1)].
-          Concentrates cross-view supervision in the action-near flow regime (t ≈ 0) where precise
-          visual disambiguation matters most. Camera orientation changes (C3) benefit most (+2.7pp),
-          consistent with theory.
-        </li>
-        <li>
-          <strong>Multi-sample averaging (K=2).</strong> Reduces gradient variance from a single
-          (t, &epsilon;) slice, yielding more stable cross-view supervision than single-sample K=1.
-        </li>
-        <li>
-          <strong>No spatial augmentation between paired views.</strong>
-          Independent spatial augmentations applied to each view of a pair introduce inconsistent
-          geometric transforms that corrupt the action-equivalent pairing guarantee. View-consistent
-          pair construction is essential (A2 ablation confirms).
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-<!-- Results -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Results</h2>
-
-    <div class="content has-text-justified" style="margin-bottom:1.5rem;">
-      <p>
-        We evaluate on the <strong>LIBERO-Plus camera-perturbation benchmark</strong> (4,797 trials across
-        three perturbation conditions: C1 camera distance/scale, C2 spherical position, C3 camera orientation).
-        All evaluations use the wrist-camera channel masked black; the policy receives only
-        a single RGB scene image, language instruction, and proprioceptive state at deployment.
-      </p>
-    </div>
-
-    <!-- Main results table -->
-    <h3 class="title is-4">Full LIBERO-Plus (camera-perturbation track)</h3>
-    <div class="table-container">
-      <table class="table is-fullwidth is-hoverable results-table">
+    <div class="table-wrap">
+      <table>
         <thead>
           <tr>
             <th>Method</th>
-            <th class="has-text-right">ID (120)</th>
-            <th class="has-text-right">Screen120 (360)</th>
-            <th class="has-text-right">Full LIBERO-Plus (4797)</th>
+            <th>Training data / objective</th>
+            <th>ID</th>
+            <th>Camera</th>
+            <th>C1</th>
+            <th>C2</th>
+            <th>C3</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Zero-shot &pi;<sub>0.5</sub></td>
-            <td class="has-text-right">&mdash;</td>
-            <td class="has-text-right">&mdash;</td>
-            <td class="has-text-right">75.8%</td>
+            <td>Nominal-only baseline</td>
+            <td>nominal LIBERO, FM only</td>
+            <td>85.8</td><td>16.8</td><td>1.1</td><td>13.2</td><td>45.7</td>
           </tr>
           <tr>
-            <td>FM-only (literature aug)</td>
-            <td class="has-text-right">92.5%</td>
-            <td class="has-text-right">79.7%</td>
-            <td class="has-text-right">79.5%</td>
+            <td>Naive mixed-camera SFT</td>
+            <td>LIBERO-Plus camera data, FM only</td>
+            <td>69.2</td><td>74.7</td><td>68.4</td><td>75.7</td><td>78.2</td>
           </tr>
           <tr>
-            <td>Naive-mixing baseline (LIBERO-Plus aug)</td>
-            <td class="has-text-right">&mdash;</td>
-            <td class="has-text-right">&mdash;</td>
-            <td class="has-text-right">74.7%</td>
+            <td>FM-only on same-state pairs</td>
+            <td>rerendered pairs, FM only</td>
+            <td>92.5</td><td>79.5</td><td>72.8</td><td>79.4</td><td>86.6</td>
           </tr>
-          <tr>
-            <td>ACoT-VLA (zero-shot)</td>
-            <td class="has-text-right">&mdash;</td>
-            <td class="has-text-right">&mdash;</td>
-            <td class="has-text-right">72.6%</td>
-          </tr>
-          <tr class="ours">
-            <td>A2: Single-sample symmetric (ours, ablation)</td>
-            <td class="has-text-right">92.5%</td>
-            <td class="has-text-right">83.3%</td>
-            <td class="has-text-right">84.9%</td>
-          </tr>
-          <tr class="ours">
-            <td>B6: Multi-sample K=2, stop-gradient (ours, negative ablation)</td>
-            <td class="has-text-right">96.7%</td>
-            <td class="has-text-right">83.6%</td>
-            <td class="has-text-right">84.3%&nbsp;<span style="color:#c00; font-size:0.8em;">&#x2193;0.6pp</span></td>
-          </tr>
-          <tr class="proposed">
-            <td><strong>Ours (B6b): Multi-sample bilateral + action-biased time (K=2, Beta(2,3))</strong></td>
-            <td class="has-text-right"><strong>95.0%</strong></td>
-            <td class="has-text-right"><strong>88.3%</strong></td>
-            <td class="has-text-right"><strong>86.9%</strong> <span class="leaderboard-badge">#2</span></td>
-          </tr>
-          <tr style="color: #888; font-style: italic;">
-            <td>B6b clean wrong-CV (causal control, deranged pairs)</td>
-            <td class="has-text-right">50.8%</td>
-            <td class="has-text-right">25.8%</td>
-            <td class="has-text-right">— (collapsed)</td>
+          <tr class="proposed-row sep-row">
+            <td>Proposed (seeds 42–44)</td>
+            <td>rerendered pairs, bilateral K=2</td>
+            <td>95.0 ± 0.8</td>
+            <td class="best">87.2 ± 0.4</td>
+            <td class="best">81.8 ± 1.0</td>
+            <td class="best">87.9 ± 0.5</td>
+            <td class="best">90.6 ± 0.9</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="is-size-6" style="color: #666; margin-top: 0.4rem;">
-      The clean wrong-CV control collapses ID by 44.2pp under the exact B6b configuration,
-      confirming that the gain depends on action-equivalent pairing, not generic regularization.
-    </p>
+    <p style="font-size:13px;color:#6b7280;margin-top:8px;">ID = standard LIBERO nominal-camera benchmark (4 suites × 30 trials). Camera = LIBERO-Plus camera-perturbation aggregate (4,797 trials). C1: camera distance/scale; C2: spherical camera position; C3: endpoint camera orientation. Baseline/ablation rows: seed 42.</p>
+  </div>
+</section>
 
-    <!-- Per-condition breakdown -->
-    <h3 class="title is-4" style="margin-top:2rem;">Per-perturbation breakdown (full 4,797 trials)</h3>
-    <div class="table-container">
-      <table class="table is-fullwidth is-hoverable results-table">
+<!-- ═══════════════════════════════════════════════════════════
+     ANALYSIS
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Mechanism Analysis</h2>
+
+    <div class="fig-row">
+      <figure>
+        <img src="static/images/category_breakdown.png" alt="Per-category breakdown">
+        <figcaption><strong>Per-category breakdown.</strong> The proposed method improves over FM-only across all three perturbation types: distance/scale C1 (+9.0 pp), spherical position C2 (+8.5 pp), endpoint orientation C3 (+4.0 pp).</figcaption>
+      </figure>
+      <figure>
+        <img src="static/images/pair_control.png" alt="Matched vs shuffled pair controls">
+        <figcaption><strong>Matched vs. shuffled pair controls.</strong> Shuffling keeps per-view flow-matching labels correct but destroys action equivalence inside the cross-view term. Both K=1 (50.4%) and K=2 (25.8%) shuffled controls collapse relative to their matched counterparts.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Ablations and Controls</h3>
+    <div class="table-wrap">
+      <table>
         <thead>
           <tr>
-            <th>Condition</th>
-            <th>Perturbation type</th>
-            <th class="has-text-right">A2 (single-sample)</th>
-            <th class="has-text-right">Ours B6b</th>
-            <th class="has-text-right">Gain</th>
+            <th>Question</th>
+            <th>Configuration</th>
+            <th>ID</th>
+            <th>Camera</th>
+            <th>Takeaway</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>C1</strong></td>
-            <td>Camera distance / scale</td>
-            <td class="has-text-right">78.5%</td>
-            <td class="has-text-right"><strong>80.7%</strong></td>
-            <td class="has-text-right">+2.2pp</td>
+            <td>Data exposure only?</td>
+            <td>FM-only on same-state pairs</td>
+            <td>92.5</td><td>79.5</td>
+            <td>Camera-diverse pair data alone is insufficient.</td>
           </tr>
           <tr>
-            <td><strong>C2</strong></td>
-            <td>Spherical position shift</td>
-            <td class="has-text-right">86.3%</td>
-            <td class="has-text-right"><strong>88.1%</strong></td>
-            <td class="has-text-right">+1.8pp</td>
+            <td>Pair geometry preserved?</td>
+            <td>K=1 CV, independent spatial aug.</td>
+            <td>90.0</td><td>80.9</td>
+            <td>Independent spatial transforms weaken the pair signal.</td>
           </tr>
           <tr>
-            <td><strong>C3</strong></td>
-            <td>Camera orientation</td>
-            <td class="has-text-right">87.0%</td>
-            <td class="has-text-right"><strong>89.7%</strong></td>
-            <td class="has-text-right">+2.7pp</td>
+            <td>Pair geometry preserved?</td>
+            <td>K=1 CV, pair-consistent aug.</td>
+            <td>92.5</td><td>84.9</td>
+            <td>Preserving pair geometry strengthens cross-view consistency.</td>
           </tr>
-          <tr class="proposed">
-            <td><strong>All</strong></td>
-            <td>Aggregate</td>
-            <td class="has-text-right">84.9%</td>
-            <td class="has-text-right"><strong>86.9%</strong></td>
-            <td class="has-text-right">+2.0pp</td>
+          <tr>
+            <td>One-sided coupling?</td>
+            <td>Stop-gradient K=2, Beta(1.5,1)</td>
+            <td>96.7</td><td>84.3</td>
+            <td>High ID, but lower robustness than bilateral recipe.</td>
+          </tr>
+          <tr>
+            <td>Wrong pairs?</td>
+            <td>Shuffled K=1 CV</td>
+            <td>80.8</td><td>50.4</td>
+            <td>Matching must be action-equivalent.</td>
+          </tr>
+          <tr>
+            <td>Wrong pairs?</td>
+            <td>Shuffled bilateral K=2 + Beta(2,3)</td>
+            <td>50.8</td><td>25.8</td>
+            <td>Stronger wrong cross-view targets severely damage behavior.</td>
+          </tr>
+          <tr class="proposed-row sep-row">
+            <td>Complete recipe</td>
+            <td>Proposed bilateral K=2 + Beta(2,3), seeds 42–44</td>
+            <td>95.0 ± 0.8</td>
+            <td class="best">87.2 ± 0.4</td>
+            <td>Best observed robustness / action-fit tradeoff.</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="is-size-6" style="color: #666; margin-top: 0.4rem;">
-      All three perturbation conditions improve simultaneously. C3 (orientation) benefits most from
-      action-biased time sampling, consistent with orientation shifts disrupting visual disambiguation
-      most in the action-near flow regime.
-    </p>
-
-    <!-- Real-robot -->
-    <h3 class="title is-4" style="margin-top:2rem;">Real-robot evaluation</h3>
-    <div class="content has-text-justified">
-      <p>
-        We additionally evaluate on a real robot platform with synchronized multi-camera setup.
-        The same wrist-masking protocol is applied. Results are reported in the paper.
-      </p>
-    </div>
-    <!-- Replace with real-robot video once available -->
-    <div class="columns is-centered" style="margin-top: 0.5rem;">
-      <div class="column is-full-width has-text-centered">
-        <video id="realrobot-video" controls muted preload playsinline width="80%">
-          <source src="./static/videos/real_robot.mp4" type="video/mp4">
-        </video>
-      </div>
-    </div>
-
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════
+     REAL ROBOT
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Real-Robot Held-Out Camera Evaluation</h2>
+    <figure>
+      <img src="static/images/realrobot_setup.png" alt="Real-robot synchronized multi-camera setup" style="max-width:720px;">
+      <figcaption>Real-robot synchronized multi-camera setup. Training demonstrations are collected with synchronized scene cameras C₀, C₁, C₂ to form action-equivalent pairs. At deployment, the policy receives only a single RGB scene image. The key evaluation condition places the deployment camera at a position <em>never observed during training</em>.</figcaption>
+    </figure>
 
-<!-- BibTeX -->
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@inproceedings{anonymous2026crossview,
-  author    = {Anonymous Authors},
-  title     = {Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies},
+    <p>We evaluate on two tabletop tasks — <em>Pick &amp; Place</em> (blue battery into cardboard box) and <em>Contact Rich</em> (closing a laptop lid) — with 10 rollouts per task, camera placement, and method. Each policy is tested from both a <strong>seen training-camera</strong> placement and a <strong>held-out camera</strong> placement never used during data collection.</p>
+
+    <div class="callout" style="margin-top:24px;background:#fef9c3;border-color:#fde68a;color:#92400e;">
+      <span class="callout-icon">⏳</span>
+      <span>Real-robot results are pending collection. This section will be updated with task-level and aggregate success rates for seen and held-out camera placements.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BIBTEX
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>BibTeX</h2>
+    <pre class="bibtex">@inproceedings{anonymous2026crossview,
+  title     = {Cross-View Action Consistency for Camera-Robust
+               Vision-Language-Action Policies},
+  author    = {Anonymous Author(s)},
   booktitle = {Conference on Robot Learning (CoRL)},
   year      = {2026},
-  note      = {Under review},
-}</code></pre>
+}</pre>
   </div>
 </section>
 
-
-<footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content has-text-centered">
-          <p>
-            This website is licensed under a
-            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-              Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-            Page template from <a href="https://nerfies.github.io">Nerfies</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+  <p>Anonymous submission — CoRL 2026. Do not distribute.</p>
 </footer>
 
 </body>
