@@ -3,24 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies">
+  <meta name="keywords" content="Vision-Language-Action, Camera Robustness, Cross-View Consistency, Robot Learning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
+  <title>Cross-View Action Consistency for Camera-Robust VLA Policies</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -32,13 +18,49 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+
+  <style>
+    .results-table {
+      font-size: 0.95rem;
+    }
+    .results-table th {
+      background-color: #f5f5f5;
+    }
+    .results-table tr.proposed {
+      background-color: #fffde7;
+      font-weight: bold;
+    }
+    .results-table tr.ours {
+      background-color: #f3f9f3;
+    }
+    .method-box {
+      background: #f8f9fa;
+      border-left: 4px solid #3273dc;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .highlight-num {
+      color: #3273dc;
+      font-weight: bold;
+    }
+    .leaderboard-badge {
+      display: inline-block;
+      background: #3273dc;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 6px;
+    }
+  </style>
 </head>
 <body>
 
@@ -52,33 +74,7 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
     </div>
-
   </div>
 </nav>
 
@@ -88,39 +84,20 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
+          <h1 class="title is-1 publication-title">Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies</h1>
           <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
-            <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
-            </span>
+            <span class="author-block">Anonymous Authors</span>
           </div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
+          <div class="is-size-6 publication-authors" style="margin-top: 0.4rem; color: #7a7a7a;">
+            <span>Anonymous Institution</span>
           </div>
 
-          <div class="column has-text-centered">
+          <div class="column has-text-centered" style="margin-top: 1rem;">
             <div class="publication-links">
-              <!-- PDF Link. -->
+              <!-- PDF Link (anonymous). -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href="./static/paper.pdf"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -128,46 +105,17 @@
                   <span>Paper</span>
                 </a>
               </span>
+              <!-- Code Link (anonymous). -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Video Link. -->
-              <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="https://github.com/anonymous0311/cross-view-action-consistency-vla"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
                   <span>Code</span>
-                  </a>
+                </a>
               </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
             </div>
-
           </div>
         </div>
       </div>
@@ -175,73 +123,48 @@
   </div>
 </section>
 
+
+<!-- Teaser / Demo Video -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
+      <!-- Replace src below with your teaser mp4 once ready -->
       <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
+        <source src="./static/videos/teaser.mp4" type="video/mp4">
       </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
+      <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+        The <em>same robot policy</em> evaluated under three camera perturbation conditions
+        (distance C1, spherical position C2, orientation C3). Our method achieves
+        <span class="highlight-num">86.9%</span> on LIBERO-Plus — <span class="leaderboard-badge">#2 Leaderboard</span>
       </h2>
     </div>
   </div>
 </section>
 
 
+<!-- Rollout video carousel -->
 <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/rollout_c1.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/rollout_c2.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/rollout_c3.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/rollout_id.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -250,205 +173,299 @@
 </section>
 
 
+<!-- Abstract -->
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+            Vision-Language-Action (VLA) policies trained on demonstrations from a fixed camera depend
+            brittly on the camera that observes the scene at deployment. We propose to regularize the
+            action-flow field directly, using <em>action-equivalent multi-view pair data</em>: two
+            observations of the same physical state with shared language, proprioception, and
+            demonstrated action.
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
+            We introduce <strong>Multi-Sample Bilateral Cross-View Action-Flow Consistency with
+            Action-Biased Time Sampling</strong>: for each pair, <em>K</em> = 2 flow-time and noise
+            samples are drawn with <em>t</em> &sim; Beta(2, 3) to concentrate supervision in the
+            action-near regime, the action-flow field is evaluated on both views, and the two
+            predictions are pulled toward each other by a bilateral cross-view loss in which both
+            branches receive gradient (no stop-gradient on either side), while standard flow matching
+            is preserved on both views. A natural-looking stop-gradient asymmetric variant turns out
+            to regress deployment robustness: it lets the nominal branch escape the mutual constraint
+            and the perturbed branch chase a moving target, which we record as an ablation.
           </p>
           <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+            A mechanism analysis shows that the matched bilateral cross-view loss upper-bounds the
+            action divergence between deployed nominal- and perturbed-view trajectories, while a
+            shuffled-pair variant carries no view-disagreement signal; the corresponding shuffled-pair
+            ablation confirms this prediction empirically. The deployed policy receives only a single
+            RGB scene image, a language instruction, and a proprioceptive robot state (the wrist
+            channel is masked throughout to make the scene-view robustness claim well-defined).
+          </p>
+          <p>
+            Our method achieves <strong>86.9%</strong> on the LIBERO-Plus camera-perturbation track
+            (4,170 / 4,797, Wilson 95% CI [85.9, 87.9]), outperforming the strongest zero-shot
+            transfer baseline (&pi;<sub>0.5</sub> at 75.8%, ACoT-VLA at 72.6%) by more than 11pp,
+            and outperforming a naive-mixing baseline trained on the LIBERO-Plus public training
+            distribution (74.7%) by +12.2pp &mdash; the central evidence that action-equivalent
+            cross-view consistency provides a mechanism beyond raw camera-augmented training data.
+            Methods reporting higher camera-track scores rely on architectural changes or
+            LIBERO-Plus-augmented supervised fine-tuning; our contribution is the consistency
+            mechanism, which preserves the single-view inference contract. We also report a
+            synchronized multi-camera real-robot evaluation.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
   </div>
 </section>
 
 
+<!-- Method -->
+<section class="section" style="background-color: #fafafa;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        Standard VLA training produces a policy that maps a single observation
+        (RGB scene image, language instruction, proprioception) to a distribution over action chunks
+        via a learned action-flow field. When the camera viewpoint changes at deployment, the
+        same physical state produces a different image, and the unregularized flow field may produce
+        a different action. We address this directly.
+      </p>
+    </div>
+
+    <!-- Method figure placeholder -->
+    <div class="columns is-centered" style="margin-bottom: 1.5rem;">
+      <div class="column is-full-width has-text-centered">
+        <img src="./static/images/method_overview.png"
+             alt="Method overview diagram"
+             style="max-width: 90%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+        <p class="is-size-6" style="margin-top: 0.6rem; color: #666;">
+          Figure 1: Multi-Sample Bilateral Cross-View Action-Flow Consistency.
+          For each same-state nominal/perturbed view pair, K=2 flow-time/noise samples are drawn;
+          the action-flow predictions from both views are pulled toward each other by a bilateral
+          loss (both branches receive gradient), while standard flow matching is preserved.
+        </p>
+      </div>
+    </div>
+
+    <div class="method-box">
+      <p><strong>Core objective.</strong>
+        For a same-state view pair (o<sub>a</sub>, o<sub>b</sub>) with shared language
+        <em>l</em>, proprioception <em>q</em>, and demonstrated action <em>a</em>:
+      </p>
+      <p style="text-align:center; font-family: monospace; margin: 0.8rem 0;">
+        &Lscr;<sub>total</sub> = &Lscr;<sub>FM</sub>(o<sub>a</sub>) + &Lscr;<sub>FM</sub>(o<sub>b</sub>) + &lambda; &middot; &Lscr;<sub>CV</sub>
+      </p>
+      <p>
+        where &Lscr;<sub>CV</sub> = (1/K) &sum;<sub>k</sub> ||v<sub>&theta;</sub>(x<sub>t</sub>, t | o<sub>a</sub>, l, q) &minus;
+        v<sub>&theta;</sub>(x<sub>t</sub>, t | o<sub>b</sub>, l, q)||<sup>2</sup>
+        with t &sim; Beta(2, 3) and no stop-gradient on either branch.
+      </p>
+    </div>
+
+    <div class="content" style="margin-top:1.5rem;">
+      <h3 class="title is-4">Key design choices</h3>
+      <ul>
+        <li>
+          <strong>Bilateral gradient (no stop-gradient).</strong> Both views are mutually constrained.
+          Stop-gradient on one branch (asymmetric) lets that branch over-specialize to action-fitting
+          without view-invariance pressure and causes the other to chase a moving target
+          — our B6 ablation regresses full LIBERO-Plus by 0.6pp despite improving in-distribution accuracy.
+        </li>
+        <li>
+          <strong>Action-biased time sampling</strong> [Beta(2, 3) vs. legacy Beta(1.5, 1)].
+          Concentrates cross-view supervision in the action-near flow regime (t ≈ 0) where precise
+          visual disambiguation matters most. Camera orientation changes (C3) benefit most (+2.7pp),
+          consistent with theory.
+        </li>
+        <li>
+          <strong>Multi-sample averaging (K=2).</strong> Reduces gradient variance from a single
+          (t, &epsilon;) slice, yielding more stable cross-view supervision than single-sample K=1.
+        </li>
+        <li>
+          <strong>No spatial augmentation between paired views.</strong>
+          Independent spatial augmentations applied to each view of a pair introduce inconsistent
+          geometric transforms that corrupt the action-equivalent pairing guarantee. View-consistent
+          pair construction is essential (A2 ablation confirms).
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- Results -->
 <section class="section">
   <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
 
-    <div class="columns is-centered">
+    <div class="content has-text-justified" style="margin-bottom:1.5rem;">
+      <p>
+        We evaluate on the <strong>LIBERO-Plus camera-perturbation benchmark</strong> (4,797 trials across
+        three perturbation conditions: C1 camera distance/scale, C2 spherical position, C3 camera orientation).
+        All evaluations use the wrist-camera channel masked black; the policy receives only
+        a single RGB scene image, language instruction, and proprioceptive state at deployment.
+      </p>
+    </div>
 
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <!--/ Visual Effects. -->
+    <!-- Main results table -->
+    <h3 class="title is-4">Full LIBERO-Plus (camera-perturbation track)</h3>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th class="has-text-right">ID (120)</th>
+            <th class="has-text-right">Screen120 (360)</th>
+            <th class="has-text-right">Full LIBERO-Plus (4797)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Zero-shot &pi;<sub>0.5</sub></td>
+            <td class="has-text-right">&mdash;</td>
+            <td class="has-text-right">&mdash;</td>
+            <td class="has-text-right">75.8%</td>
+          </tr>
+          <tr>
+            <td>FM-only (literature aug)</td>
+            <td class="has-text-right">92.5%</td>
+            <td class="has-text-right">79.7%</td>
+            <td class="has-text-right">79.5%</td>
+          </tr>
+          <tr>
+            <td>Naive-mixing baseline (LIBERO-Plus aug)</td>
+            <td class="has-text-right">&mdash;</td>
+            <td class="has-text-right">&mdash;</td>
+            <td class="has-text-right">74.7%</td>
+          </tr>
+          <tr>
+            <td>ACoT-VLA (zero-shot)</td>
+            <td class="has-text-right">&mdash;</td>
+            <td class="has-text-right">&mdash;</td>
+            <td class="has-text-right">72.6%</td>
+          </tr>
+          <tr class="ours">
+            <td>A2: Single-sample symmetric (ours, ablation)</td>
+            <td class="has-text-right">92.5%</td>
+            <td class="has-text-right">83.3%</td>
+            <td class="has-text-right">84.9%</td>
+          </tr>
+          <tr class="ours">
+            <td>B6: Multi-sample K=2, stop-gradient (ours, negative ablation)</td>
+            <td class="has-text-right">96.7%</td>
+            <td class="has-text-right">83.6%</td>
+            <td class="has-text-right">84.3%&nbsp;<span style="color:#c00; font-size:0.8em;">&#x2193;0.6pp</span></td>
+          </tr>
+          <tr class="proposed">
+            <td><strong>Ours (B6b): Multi-sample bilateral + action-biased time (K=2, Beta(2,3))</strong></td>
+            <td class="has-text-right"><strong>95.0%</strong></td>
+            <td class="has-text-right"><strong>88.3%</strong></td>
+            <td class="has-text-right"><strong>86.9%</strong> <span class="leaderboard-badge">#2</span></td>
+          </tr>
+          <tr style="color: #888; font-style: italic;">
+            <td>B6b clean wrong-CV (causal control, deranged pairs)</td>
+            <td class="has-text-right">50.8%</td>
+            <td class="has-text-right">25.8%</td>
+            <td class="has-text-right">— (collapsed)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="is-size-6" style="color: #666; margin-top: 0.4rem;">
+      The clean wrong-CV control collapses ID by 44.2pp under the exact B6b configuration,
+      confirming that the gain depends on action-equivalent pairing, not generic regularization.
+    </p>
 
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
+    <!-- Per-condition breakdown -->
+    <h3 class="title is-4" style="margin-top:2rem;">Per-perturbation breakdown (full 4,797 trials)</h3>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results-table">
+        <thead>
+          <tr>
+            <th>Condition</th>
+            <th>Perturbation type</th>
+            <th class="has-text-right">A2 (single-sample)</th>
+            <th class="has-text-right">Ours B6b</th>
+            <th class="has-text-right">Gain</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>C1</strong></td>
+            <td>Camera distance / scale</td>
+            <td class="has-text-right">78.5%</td>
+            <td class="has-text-right"><strong>80.7%</strong></td>
+            <td class="has-text-right">+2.2pp</td>
+          </tr>
+          <tr>
+            <td><strong>C2</strong></td>
+            <td>Spherical position shift</td>
+            <td class="has-text-right">86.3%</td>
+            <td class="has-text-right"><strong>88.1%</strong></td>
+            <td class="has-text-right">+1.8pp</td>
+          </tr>
+          <tr>
+            <td><strong>C3</strong></td>
+            <td>Camera orientation</td>
+            <td class="has-text-right">87.0%</td>
+            <td class="has-text-right"><strong>89.7%</strong></td>
+            <td class="has-text-right">+2.7pp</td>
+          </tr>
+          <tr class="proposed">
+            <td><strong>All</strong></td>
+            <td>Aggregate</td>
+            <td class="has-text-right">84.9%</td>
+            <td class="has-text-right"><strong>86.9%</strong></td>
+            <td class="has-text-right">+2.0pp</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="is-size-6" style="color: #666; margin-top: 0.4rem;">
+      All three perturbation conditions improve simultaneously. C3 (orientation) benefits most from
+      action-biased time sampling, consistent with orientation shifts disrupting visual disambiguation
+      most in the action-near flow regime.
+    </p>
 
-        </div>
+    <!-- Real-robot -->
+    <h3 class="title is-4" style="margin-top:2rem;">Real-robot evaluation</h3>
+    <div class="content has-text-justified">
+      <p>
+        We additionally evaluate on a real robot platform with synchronized multi-camera setup.
+        The same wrist-masking protocol is applied. Results are reported in the paper.
+      </p>
+    </div>
+    <!-- Replace with real-robot video once available -->
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column is-full-width has-text-centered">
+        <video id="realrobot-video" controls muted preload playsinline width="80%">
+          <source src="./static/videos/real_robot.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
 
   </div>
 </section>
 
 
+<!-- BibTeX -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+    <pre><code>@inproceedings{anonymous2026crossview,
+  author    = {Anonymous Authors},
+  title     = {Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2026},
+  note      = {Under review},
 }</code></pre>
   </div>
 </section>
@@ -456,29 +473,14 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
-        <div class="content">
+        <div class="content has-text-centered">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+              Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            Page template from <a href="https://nerfies.github.io">Nerfies</a>.
           </p>
         </div>
       </div>
