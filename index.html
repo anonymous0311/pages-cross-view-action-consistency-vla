@@ -192,7 +192,7 @@
   <div class="container">
     <figure>
       <img src="static/images/teaser.png" alt="Teaser figure">
-      <figcaption>Camera viewpoint shifts can cause a VLA policy to produce different actions from the same physical state. We train on action-equivalent views so that different views of the same state are supervised by the same demonstrated action and regularized to produce consistent action-flow predictions. At inference, the policy receives only a single RGB scene image (held-out from training), a language instruction, and proprioceptive state.</figcaption>
+      <figcaption>Camera viewpoint shifts can cause a VLA policy to produce different actions from the same physical state. We train on action-equivalent views so that different views of the same state are supervised by the same demonstrated action and regularized to produce consistent action-flow predictions. At inference, the policy receives a single RGB scene image (held-out camera placement), language instruction, and proprioceptive state; the wrist stream is masked throughout as an experimental control.</figcaption>
     </figure>
   </div>
 </section>
@@ -204,9 +204,9 @@
   <div class="container">
     <h2>Abstract</h2>
     <div class="abstract-box">
-      Vision-language-action (VLA) policies fine-tuned from a fixed scene camera can fail when the camera is moved, even when the task, objects, language, and robot state are unchanged. We study scene-camera viewpoint robustness under a strict deployment interface: a single scene RGB image, language, and proprioception, with no camera label, extrinsics, depth, point cloud, wrist image, or multi-view input. For flow-based VLAs, we propose to regularize the action-flow velocity field across action-equivalent views. We construct action-equivalent view pairs by resetting original LIBERO demonstrations to the same MuJoCo state and rendering nominal and perturbed scene-camera views. Both views are supervised by flow matching, while a cross-view loss encourages their predicted action-flow velocities to agree at the same sampled flow coordinates.
+      Vision-language-action (VLA) policies fine-tuned from a fixed scene camera can fail when the camera is moved, even when the task, objects, language, and robot state are unchanged. We study scene-camera viewpoint robustness using only a scene RGB image, language, and proprioception, without camera labels, extrinsics, depth, or point-cloud inputs. The wrist stream is masked throughout to prevent an unperturbed visual shortcut from confounding attribution to scene-camera variation. For flow-based VLAs, we propose to regularize the action-flow velocity field, the quantity directly integrated to generate continuous action chunks. We construct action-equivalent view pairs by resetting original LIBERO demonstrations to the same MuJoCo state and rendering nominal and perturbed scene-camera views. Both views are supervised by flow matching, while a cross-view loss encourages their predicted action-flow velocities to agree at the same sampled flow coordinates.
       <br><br>
-      On the LIBERO-Plus camera-perturbation track (4,797 trials), our method reaches <strong>87.2 ± 0.4%</strong> over three seeds, +7.7 pp over flow-matching-only training on the same paired data and +12.5 pp over naive mixed-camera SFT, while preserving nominal-camera in-distribution performance (95.0 ± 0.8%). A shuffled-pair control collapses to 25.8%, showing that the gain depends on action-equivalent pairing.
+      On the LIBERO-Plus camera-perturbation track, our method reaches <strong>87.2 ± 0.4%</strong> (4,797 trials × 3 training seeds), +7.7 pp over flow-matching-only training on the same paired data and +12.5 pp over naive mixed-camera SFT, while preserving nominal-camera ID performance (95.0 ± 0.8%). A shuffled-pair control collapses to 25.8%, showing that the gain depends on action-equivalent pairing. On a real robot, we evaluate three tabletop tasks with 10 rollouts per task and camera placement; held-out-camera success improves from <strong>53.3%</strong> to <strong>74.4%</strong> under the same single-scene-RGB inference interface.
     </div>
   </div>
 </section>
@@ -343,18 +343,6 @@
             <td>Camera-diverse pair data alone is insufficient.</td>
           </tr>
           <tr>
-            <td>Pair geometry preserved?</td>
-            <td>K=1 CV, independent spatial aug.</td>
-            <td>90.0</td><td>80.9</td>
-            <td>Independent spatial transforms weaken the pair signal.</td>
-          </tr>
-          <tr>
-            <td>Pair geometry preserved?</td>
-            <td>K=1 CV, pair-consistent aug.</td>
-            <td>92.5</td><td>84.9</td>
-            <td>Preserving pair geometry strengthens cross-view consistency.</td>
-          </tr>
-          <tr>
             <td>One-sided coupling?</td>
             <td>Stop-gradient K=2, Beta(1.5,1)</td>
             <td>96.7</td><td>84.3</td>
@@ -396,12 +384,17 @@
       <figcaption>Real-robot synchronized multi-camera setup. Training demonstrations are collected with synchronized scene cameras C₀, C₁, C₂ to form action-equivalent pairs. At deployment, the policy receives only a single RGB scene image. The key evaluation condition places the deployment camera at a position <em>never observed during training</em>.</figcaption>
     </figure>
 
-    <p>We evaluate on two tabletop tasks — <em>Pick &amp; Place</em> (blue battery into cardboard box) and <em>Contact Rich</em> (closing a laptop lid) — with 10 rollouts per task, camera placement, and method. Each policy is tested from both a <strong>seen training-camera</strong> placement and a <strong>held-out camera</strong> placement never used during data collection.</p>
+    <p>We evaluate on three tabletop tasks — <em>Pick &amp; Place</em> (blue battery into cardboard box), <em>Contact Rich</em> (closing a laptop lid), and <em>Headphones Off Stand</em> (taking headphones off a stand) — with 10 rollouts per task, camera placement, and method. Each policy is tested from 3 <strong>seen training-camera</strong> placements and 3 <strong>held-out camera</strong> placements never used during data collection. The primary comparison is between flow-matching-only multi-view mixed training and the proposed cross-view action-flow consistency objective, using the same synchronized demonstrations.</p>
 
-    <div class="callout" style="margin-top:24px;background:#fef9c3;border-color:#fde68a;color:#92400e;">
-      <span class="callout-icon">⏳</span>
-      <span>Real-robot results are pending collection. This section will be updated with task-level and aggregate success rates for seen and held-out camera placements.</span>
+    <div class="callout" style="margin-top:24px;">
+      <span class="callout-icon">📊</span>
+      <span>Held-out-camera aggregate success improves from <strong>53.3%</strong> (FM-only) to <strong>74.4%</strong> (proposed), a <strong>+21.1 pp</strong> gain under the same single-scene-RGB inference interface.</span>
     </div>
+
+    <figure>
+      <img src="static/images/realrobot_results.png" alt="Real-robot task-level and aggregate results">
+      <figcaption>Task-level and aggregate success rates for seen and held-out camera placements. The wrist stream is masked in all conditions to isolate scene-camera robustness.</figcaption>
+    </figure>
   </div>
 </section>
 
