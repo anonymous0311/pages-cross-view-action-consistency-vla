@@ -149,6 +149,25 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
     }
     @media (max-width: 640px) { .video-pair { grid-template-columns: 1fr; } }
+    /* 3-column grid for real-robot seen cameras */
+    .video-trio {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    @media (max-width: 720px) { .video-trio { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .video-trio { grid-template-columns: 1fr; } }
+    /* Held-out callout styling */
+    .callout-heldout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: #fef9c3; border: 1px solid #fde68a;
+      border-radius: 8px; padding: 14px 18px; margin: 24px 0 16px;
+      font-size: 14px; color: #78350f; line-height: 1.6;
+    }
+    .task-block { margin: 28px 0; }
+    .task-label {
+      font-size: 13px; font-weight: 700; color: #374151;
+      text-transform: uppercase; letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
     .video-panel { display: flex; flex-direction: column; }
     .video-panel-label {
       font-size: 11px; font-weight: 700; letter-spacing: .07em;
@@ -217,6 +236,130 @@
       </svg>
       <p>Video coming soon</p>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     REAL-ROBOT ROLLOUT VIDEOS
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Real-Robot Rollout Videos</h2>
+    <p style="color:#374151;font-size:15px;margin-bottom:4px;">
+      Each rollout is executed from a <strong>single RGB scene image</strong> with the wrist stream masked.
+      C0 is the nominal training camera; C1 and C2 are two additional seen training-camera placements.
+    </p>
+
+    <!-- ── Seen cameras ── -->
+    <h3 style="margin-top:28px;">Seen Camera Placements (C0 · C1 · C2)</h3>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:4px;">
+      Each row shows the <em>same physical rollout</em> from three synchronized training cameras.
+      All three succeed — each using only its own single-camera view as input.
+    </p>
+
+    <div class="task-block">
+      <div class="task-label">Pick &amp; Place — blue battery into cardboard box</div>
+      <div class="video-trio">
+        <div class="video-panel">
+          <div class="video-panel-label">C0 — nominal</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/pick-place/C0.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">C1 — perturbed 1</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/pick-place/C1.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">C2 — perturbed 2</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/pick-place/C2.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="task-label">Contact Rich — close the laptop lid</div>
+      <div class="video-trio">
+        <div class="video-panel">
+          <div class="video-panel-label">C0 — nominal</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/laptop/C0.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">C1 — perturbed 1</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/laptop/C1.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">C2 — perturbed 2</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/laptop/C2.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="task-label">Dexterous Operation — take headphones off the stand</div>
+      <div class="video-trio">
+        <div class="video-panel">
+          <div class="video-panel-label">C0 — nominal</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/headphones/C0.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">C1 — perturbed 1</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/headphones/C1.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">C2 — perturbed 2</div>
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/realrobot/seen/headphones/C2.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Held-out cameras ── -->
+    <h3 style="margin-top:40px; padding-top:32px; border-top:1px solid #e5e7eb;">Held-Out Camera Placements</h3>
+    <div class="callout-heldout">
+      <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+      <span>These camera placements were <strong>never seen during training</strong>.
+      The cameras were handheld during recording, so the footage is intentionally unsteady —
+      this reflects genuine held-out deployment conditions, not a recording artifact.
+      No held-out footage was collected for the headphones task.</span>
+    </div>
+
+    <div class="video-trio" style="max-width:720px;">
+      <div class="video-panel">
+        <div class="video-panel-label">H0 — Close laptop lid</div>
+        <video autoplay muted loop playsinline controls preload="auto">
+          <source src="static/videos/realrobot/heldout/laptop/H0.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+        </video>
+      </div>
+      <div class="video-panel">
+        <div class="video-panel-label">H2 — Close laptop lid</div>
+        <video autoplay muted loop playsinline controls preload="auto">
+          <source src="static/videos/realrobot/heldout/laptop/H2.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+        </video>
+      </div>
+      <div class="video-panel">
+        <div class="video-panel-label">H2 — Pick &amp; Place</div>
+        <video autoplay muted loop playsinline controls preload="auto">
+          <source src="static/videos/realrobot/heldout/pick-place/H2.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+        </video>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -529,10 +672,6 @@
       <figcaption>Task-level and aggregate success rates for seen and held-out camera placements. The wrist stream is masked in all conditions to isolate scene-camera robustness.</figcaption>
     </figure>
 
-    <div class="robot-placeholder">
-      <strong style="color:#9ca3af;">Real-robot rollout videos — coming soon</strong>
-      <p>Video demonstrations of Pick &amp; Place, Contact Rich, and Dexterous Operation from seen and held-out camera placements will be added here.</p>
-    </div>
   </div>
 </section>
 
