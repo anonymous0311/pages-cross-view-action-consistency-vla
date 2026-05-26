@@ -138,6 +138,41 @@
       font-size: 15px; color: #1e40af; line-height: 1.6;
     }
     .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Rollout video pairs ────────────────────────────────── */
+    .video-demo-block { margin: 36px 0; }
+    .video-demo-block + .video-demo-block { border-top: 1px solid #f3f4f6; padding-top: 36px; }
+    .video-block-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+    .video-block-header h3 { font-size: 16px; font-weight: 700; color: #111; margin: 0; }
+    .video-demo-meta { font-size: 13px; color: #6b7280; margin-bottom: 14px; }
+    .video-pair {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    @media (max-width: 640px) { .video-pair { grid-template-columns: 1fr; } }
+    .video-panel { display: flex; flex-direction: column; }
+    .video-panel-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; color: #9ca3af; margin-bottom: 6px;
+    }
+    .video-panel video {
+      width: 100%; border-radius: 6px; border: 1px solid #e5e7eb;
+      background: #111827;
+    }
+    .perturbation-tag {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .tag-c1 { background: #dbeafe; color: #1d4ed8; }
+    .tag-c2 { background: #dcfce7; color: #166534; }
+    .tag-c3 { background: #fef3c7; color: #92400e; }
+    .robot-placeholder {
+      background: #f9fafb; border: 2px dashed #d1d5db;
+      border-radius: 10px; padding: 40px 24px;
+      text-align: center; color: #9ca3af; font-size: 15px;
+      margin: 28px 0;
+    }
+    .robot-placeholder p { margin-top: 8px; font-size: 13px; color: #d1d5db; }
   </style>
 </head>
 <body>
@@ -206,7 +241,7 @@
     <div class="abstract-box">
       Vision-language-action (VLA) policies fine-tuned from a fixed scene camera can fail when the camera is moved, even when the task, objects, language, and robot state are unchanged. We study scene-camera viewpoint robustness using only a scene RGB image, language, and proprioception, without camera labels, extrinsics, depth, or point-cloud inputs. The wrist stream is masked throughout to prevent an unperturbed visual shortcut from confounding attribution to scene-camera variation. For flow-based VLAs, we propose to regularize the action-flow velocity field, the quantity directly integrated to generate continuous action chunks. We construct action-equivalent view pairs by resetting original LIBERO demonstrations to the same MuJoCo state and rendering nominal and perturbed scene-camera views. Both views are supervised by flow matching, while a cross-view loss encourages their predicted action-flow velocities to agree at the same sampled flow coordinates.
       <br><br>
-      On the LIBERO-Plus camera-perturbation track, our method reaches <strong>87.2 ± 0.4%</strong> (4,797 trials × 3 training seeds), +7.7 pp over flow-matching-only training on the same paired data and +12.5 pp over naive mixed-camera SFT, while preserving nominal-camera ID performance (95.0 ± 0.8%). A shuffled-pair control collapses to 25.8%, showing that the gain depends on action-equivalent pairing. On a real robot, we evaluate three tabletop tasks with 10 rollouts per task and camera placement; held-out-camera success improves from <strong>53.3%</strong> to <strong>74.4%</strong> under the same single-scene-RGB inference interface.
+      On the LIBERO-Plus camera-perturbation track, our method reaches <strong>87.2 ± 0.4%</strong> (4,797 rollouts per seed across 3 training seeds), +7.7 pp over flow-matching-only training on the same paired data and +12.5 pp over naive mixed-camera SFT, while preserving nominal-camera ID performance (95.0 ± 0.8%). A shuffled-pair control collapses to 25.8%, showing that the gain depends on action-equivalent pairing. On a real robot, we evaluate three tabletop tasks with 10 rollouts per task and camera placement; held-out-camera success improves from <strong>53.3%</strong> to <strong>74.4%</strong> under the same single-scene-RGB inference interface.
     </div>
   </div>
 </section>
@@ -237,6 +272,10 @@
       </div>
       <div class="insight-card">
         <div class="num">Key idea 4</div>
+        <p><strong>Mean-residual decomposition.</strong> Writing predictions in mean/residual coordinates, the objective separates cleanly: the mean prediction is trained toward the demonstrated action, while the cross-view term amplifies pressure on the view-disagreement residual at the same rate. Adding L<sub>CV</sub> does not redirect either view away from the demonstrated action; it concentrates optimization against view-specific velocity deviations.</p>
+      </div>
+      <div class="insight-card">
+        <div class="num">Key idea 5</div>
         <p><strong>Zero inference overhead.</strong> The paired structure is used only at training time. The deployed policy is identical to the base VLA: one RGB scene image + language + proprioception — no camera labels, depth, or multi-view input.</p>
       </div>
     </div>
@@ -374,6 +413,100 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
+     ROLLOUT VIDEOS
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Rollout Videos on LIBERO-Plus</h2>
+    <p style="color:#374151;font-size:15px;margin-bottom:8px;">
+      Each block shows a successful policy rollout at a held-out camera perturbation level (Level 4–5).
+      The left panel shows the nominal-camera view for spatial reference; the right panel shows the
+      <em>actual evaluation camera</em> that the policy receives as input.
+      All rollouts use the same single-scene-RGB inference interface with the wrist stream masked.
+    </p>
+
+    <!-- C1 -->
+    <div class="video-demo-block">
+      <div class="video-block-header">
+        <span class="perturbation-tag tag-c1">C1</span>
+        <h3>Camera Distance / Scale &nbsp;·&nbsp; Level 5</h3>
+      </div>
+      <p class="video-demo-meta">
+        Task: <em>Put the black bowl in the bottom drawer of the cabinet and close it.</em> &nbsp;
+        Eval camera is zoomed out (distance ×1.38 relative to nominal).
+      </p>
+      <div class="video-pair">
+        <div class="video-panel">
+          <div class="video-panel-label">Nominal view (reference)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C1/nominal.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C1/perturbed.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="video-demo-block">
+      <div class="video-block-header">
+        <span class="perturbation-tag tag-c2">C2</span>
+        <h3>Spherical Camera Position &nbsp;·&nbsp; Level 4</h3>
+      </div>
+      <p class="video-demo-meta">
+        Task: <em>Turn on the stove and put the moka pot on it.</em> &nbsp;
+        Eval camera is rotated 35° in azimuth around the scene.
+      </p>
+      <div class="video-pair">
+        <div class="video-panel">
+          <div class="video-panel-label">Nominal view (reference)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C2/nominal.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C2/perturbed.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="video-demo-block">
+      <div class="video-block-header">
+        <span class="perturbation-tag tag-c3">C3</span>
+        <h3>Endpoint Camera Orientation &nbsp;·&nbsp; Level 4</h3>
+      </div>
+      <p class="video-demo-meta">
+        Task: <em>Put the yellow and white mug in the microwave and close it.</em> &nbsp;
+        Eval camera has roll/pitch offsets (358°/354°) relative to nominal.
+      </p>
+      <div class="video-pair">
+        <div class="video-panel">
+          <div class="video-panel-label">Nominal view (reference)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C3/nominal.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C3/perturbed.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
      REAL ROBOT
 ════════════════════════════════════════════════════════════ -->
 <section>
@@ -384,7 +517,7 @@
       <figcaption>Real-robot synchronized multi-camera setup. Training demonstrations are collected with synchronized scene cameras C₀, C₁, C₂ to form action-equivalent pairs. At deployment, the policy receives only a single RGB scene image. The key evaluation condition places the deployment camera at a position <em>never observed during training</em>.</figcaption>
     </figure>
 
-    <p>We evaluate on three tabletop tasks — <em>Pick &amp; Place</em> (blue battery into cardboard box), <em>Contact Rich</em> (closing a laptop lid), and <em>Headphones Off Stand</em> (taking headphones off a stand) — with 10 rollouts per task, camera placement, and method. Each policy is tested from 3 <strong>seen training-camera</strong> placements and 3 <strong>held-out camera</strong> placements never used during data collection. The primary comparison is between flow-matching-only multi-view mixed training and the proposed cross-view action-flow consistency objective, using the same synchronized demonstrations.</p>
+    <p>We evaluate on three tabletop tasks — <em>Pick &amp; Place</em> (blue battery into cardboard box), <em>Contact Rich</em> (closing a laptop lid), and <em>Dexterous Operation</em> (taking the headphones off the stand) — with 10 rollouts per task, camera placement, and method, for 90 rollouts per (method, condition) pair across the three tasks. Each policy is tested from 3 <strong>seen training-camera</strong> placements and 3 <strong>held-out camera</strong> placements never used during data collection. The primary comparison is between flow-matching-only multi-view mixed training and the proposed cross-view action-flow consistency objective, using the same synchronized demonstrations.</p>
 
     <div class="callout" style="margin-top:24px;">
       <span class="callout-icon">📊</span>
@@ -395,6 +528,11 @@
       <img src="static/images/realrobot_results.png" alt="Real-robot task-level and aggregate results">
       <figcaption>Task-level and aggregate success rates for seen and held-out camera placements. The wrist stream is masked in all conditions to isolate scene-camera robustness.</figcaption>
     </figure>
+
+    <div class="robot-placeholder">
+      <strong style="color:#9ca3af;">Real-robot rollout videos — coming soon</strong>
+      <p>Video demonstrations of Pick &amp; Place, Contact Rich, and Dexterous Operation from seen and held-out camera placements will be added here.</p>
+    </div>
   </div>
 </section>
 
