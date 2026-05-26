@@ -221,6 +221,100 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
+     ROLLOUT VIDEOS
+════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Rollout Videos on LIBERO-Plus</h2>
+    <p style="color:#374151;font-size:15px;margin-bottom:8px;">
+      Each block shows a successful policy rollout at a held-out camera perturbation level (Level 4–5).
+      The left panel shows the nominal-camera view for spatial reference; the right panel shows the
+      <em>actual evaluation camera</em> that the policy receives as input — the only image the deployed policy sees.
+      All rollouts use the single-scene-RGB inference interface with the wrist stream masked.
+    </p>
+
+    <!-- C1 -->
+    <div class="video-demo-block">
+      <div class="video-block-header">
+        <span class="perturbation-tag tag-c1">C1</span>
+        <h3>Camera Distance / Scale &nbsp;·&nbsp; Level 5</h3>
+      </div>
+      <p class="video-demo-meta">
+        Task: <em>Put the black bowl in the bottom drawer of the cabinet and close it.</em> &nbsp;
+        Eval camera is zoomed out (distance ×1.38 relative to nominal).
+      </p>
+      <div class="video-pair">
+        <div class="video-panel">
+          <div class="video-panel-label">Nominal view (reference)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C1/nominal.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C1/perturbed.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="video-demo-block">
+      <div class="video-block-header">
+        <span class="perturbation-tag tag-c2">C2</span>
+        <h3>Spherical Camera Position &nbsp;·&nbsp; Level 4</h3>
+      </div>
+      <p class="video-demo-meta">
+        Task: <em>Turn on the stove and put the moka pot on it.</em> &nbsp;
+        Eval camera is rotated 35° in azimuth around the scene.
+      </p>
+      <div class="video-pair">
+        <div class="video-panel">
+          <div class="video-panel-label">Nominal view (reference)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C2/nominal.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C2/perturbed.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="video-demo-block">
+      <div class="video-block-header">
+        <span class="perturbation-tag tag-c3">C3</span>
+        <h3>Endpoint Camera Orientation &nbsp;·&nbsp; Level 4</h3>
+      </div>
+      <p class="video-demo-meta">
+        Task: <em>Put the yellow and white mug in the microwave and close it.</em> &nbsp;
+        Eval camera has roll/pitch offsets relative to nominal.
+      </p>
+      <div class="video-pair">
+        <div class="video-panel">
+          <div class="video-panel-label">Nominal view (reference)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C3/nominal.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-panel">
+          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
+          <video autoplay muted loop playsinline controls>
+            <source src="static/videos/C3/perturbed.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
      TEASER
 ════════════════════════════════════════════════════════════ -->
 <section>
@@ -409,100 +503,6 @@
         </tbody>
       </table>
     </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     ROLLOUT VIDEOS
-════════════════════════════════════════════════════════════ -->
-<section>
-  <div class="container">
-    <h2>Rollout Videos on LIBERO-Plus</h2>
-    <p style="color:#374151;font-size:15px;margin-bottom:8px;">
-      Each block shows a successful policy rollout at a held-out camera perturbation level (Level 4–5).
-      The left panel shows the nominal-camera view for spatial reference; the right panel shows the
-      <em>actual evaluation camera</em> that the policy receives as input.
-      All rollouts use the same single-scene-RGB inference interface with the wrist stream masked.
-    </p>
-
-    <!-- C1 -->
-    <div class="video-demo-block">
-      <div class="video-block-header">
-        <span class="perturbation-tag tag-c1">C1</span>
-        <h3>Camera Distance / Scale &nbsp;·&nbsp; Level 5</h3>
-      </div>
-      <p class="video-demo-meta">
-        Task: <em>Put the black bowl in the bottom drawer of the cabinet and close it.</em> &nbsp;
-        Eval camera is zoomed out (distance ×1.38 relative to nominal).
-      </p>
-      <div class="video-pair">
-        <div class="video-panel">
-          <div class="video-panel-label">Nominal view (reference)</div>
-          <video autoplay muted loop playsinline controls>
-            <source src="static/videos/C1/nominal.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-panel">
-          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
-          <video autoplay muted loop playsinline controls>
-            <source src="static/videos/C1/perturbed.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-
-    <!-- C2 -->
-    <div class="video-demo-block">
-      <div class="video-block-header">
-        <span class="perturbation-tag tag-c2">C2</span>
-        <h3>Spherical Camera Position &nbsp;·&nbsp; Level 4</h3>
-      </div>
-      <p class="video-demo-meta">
-        Task: <em>Turn on the stove and put the moka pot on it.</em> &nbsp;
-        Eval camera is rotated 35° in azimuth around the scene.
-      </p>
-      <div class="video-pair">
-        <div class="video-panel">
-          <div class="video-panel-label">Nominal view (reference)</div>
-          <video autoplay muted loop playsinline controls>
-            <source src="static/videos/C2/nominal.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-panel">
-          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
-          <video autoplay muted loop playsinline controls>
-            <source src="static/videos/C2/perturbed.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-
-    <!-- C3 -->
-    <div class="video-demo-block">
-      <div class="video-block-header">
-        <span class="perturbation-tag tag-c3">C3</span>
-        <h3>Endpoint Camera Orientation &nbsp;·&nbsp; Level 4</h3>
-      </div>
-      <p class="video-demo-meta">
-        Task: <em>Put the yellow and white mug in the microwave and close it.</em> &nbsp;
-        Eval camera has roll/pitch offsets (358°/354°) relative to nominal.
-      </p>
-      <div class="video-pair">
-        <div class="video-panel">
-          <div class="video-panel-label">Nominal view (reference)</div>
-          <video autoplay muted loop playsinline controls>
-            <source src="static/videos/C3/nominal.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-panel">
-          <div class="video-panel-label">Eval camera (perturbed — policy input)</div>
-          <video autoplay muted loop playsinline controls>
-            <source src="static/videos/C3/perturbed.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
