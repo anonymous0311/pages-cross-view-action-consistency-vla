@@ -192,6 +192,29 @@
       margin: 28px 0;
     }
     .robot-placeholder p { margin-top: 8px; font-size: 13px; color: #d1d5db; }
+
+    /* ── Held-out comparison panels ─────────────────────────── */
+    .method-panel-fail .video-panel-label { color: #dc2626; }
+    .method-panel-fail video { border-color: #fca5a5; border-width: 2px; }
+    .method-panel-success .video-panel-label { color: #16a34a; }
+    .method-panel-success video { border-color: #86efac; border-width: 2px; }
+    .heldout-view-row { margin-bottom: 20px; }
+    .heldout-view-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px; font-size: 13px; color: #6b7280;
+    }
+    .heldout-view-tag {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 4px;
+      background: #f3f4f6; color: #374151;
+    }
+    .no-video-panel {
+      display: flex; align-items: center; justify-content: center;
+      background: #f9fafb; border: 2px dashed #e5e7eb;
+      border-radius: 6px; aspect-ratio: 16/9;
+      font-size: 13px; color: #9ca3af; text-align: center; padding: 16px;
+    }
   </style>
 </head>
 <body>
@@ -330,33 +353,195 @@
     </div>
 
     <!-- ── Held-out cameras ── -->
-    <h3 style="margin-top:40px; padding-top:32px; border-top:1px solid #e5e7eb;">Held-Out Camera Placements</h3>
+    <h3 style="margin-top:40px; padding-top:32px; border-top:1px solid #e5e7eb;">Held-Out Camera Placements — FM-only vs. Ours</h3>
     <div class="callout-heldout">
       <span style="font-size:18px;flex-shrink:0;">⚠️</span>
-      <span>These camera placements were <strong>never seen during training</strong>.
-      The cameras were handheld during recording, so the footage is intentionally unsteady —
-      this reflects genuine held-out deployment conditions, not a recording artifact.
-      No held-out footage was collected for the headphones task.</span>
+      <span>These three camera placements (H0, H1, H2) were <strong>never seen during training</strong>.
+      Each pair shows an FM-only rollout (<span style="color:#dc2626;font-weight:600;">fails</span>) alongside an Ours rollout (<span style="color:#16a34a;font-weight:600;">succeeds</span>) from the same held-out view.
+      H0 = farther-distance extrapolation from C0; H1 = azimuth rotation between C0 and C1; H2 = higher and more top-down placement between C0 and C2.</span>
     </div>
 
-    <div class="video-trio" style="max-width:720px;">
-      <div class="video-panel">
-        <div class="video-panel-label">H0 — Close laptop lid</div>
-        <video autoplay muted loop playsinline controls preload="auto">
-          <source src="static/videos/realrobot/heldout/laptop/H0.mp4" type='video/mp4; codecs="avc1.42C01F"'>
-        </video>
+    <!-- Battery task -->
+    <div class="task-block">
+      <div class="task-label">Pick &amp; Place — blue battery into cardboard box</div>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H0</span>
+          <span>Farther distance from C0</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/battery/H0_FMonly_battery.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/battery/H0_ours_battery.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
       </div>
-      <div class="video-panel">
-        <div class="video-panel-label">H2 — Close laptop lid</div>
-        <video autoplay muted loop playsinline controls preload="auto">
-          <source src="static/videos/realrobot/heldout/laptop/H2.mp4" type='video/mp4; codecs="avc1.42C01F"'>
-        </video>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H1</span>
+          <span>Azimuth rotation between C0 and C1</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/battery/H1_FMonly_battery.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/battery/H1_ours_battery.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
       </div>
-      <div class="video-panel">
-        <div class="video-panel-label">H2 — Pick &amp; Place</div>
-        <video autoplay muted loop playsinline controls preload="auto">
-          <source src="static/videos/realrobot/heldout/pick-place/H2.mp4" type='video/mp4; codecs="avc1.42C01F"'>
-        </video>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H2</span>
+          <span>Higher and more top-down, between C0 and C2</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/battery/H2_FMonly_battery.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/battery/H2_ours_batttery.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Close lid task -->
+    <div class="task-block" style="margin-top:32px; padding-top:24px; border-top:1px solid #f3f4f6;">
+      <div class="task-label">Contact Rich — close the laptop lid</div>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H0</span>
+          <span>Farther distance from C0</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/closelid/H0_FMonly_close_lid.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/closelid/H0_ours_close_lid.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H1</span>
+          <span>Azimuth rotation between C0 and C1</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/closelid/H1_FMonly_close_lid.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/closelid/H1_ours_close_lid.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Headphones takeoff task -->
+    <div class="task-block" style="margin-top:32px; padding-top:24px; border-top:1px solid #f3f4f6;">
+      <div class="task-label">Dexterous Operation — take headphones off the stand</div>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H0</span>
+          <span>Farther distance from C0</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/takeoff/H0_FMonly_takeoff.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/takeoff/H0_ours_takeoff.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H1</span>
+          <span>Azimuth rotation between C0 and C1</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/takeoff/H1_FMonly_takeoff.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/takeoff/H1_ours_takeoff.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="heldout-view-row">
+        <div class="heldout-view-header">
+          <span class="heldout-view-tag">H2</span>
+          <span>Higher and more top-down, between C0 and C2</span>
+        </div>
+        <div class="video-pair">
+          <div class="video-panel method-panel-fail">
+            <div class="video-panel-label">FM-only — fails</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/takeoff/H2_FMonly_takeoff.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+          <div class="video-panel method-panel-success">
+            <div class="video-panel-label">Ours — succeeds</div>
+            <video autoplay muted loop playsinline controls preload="auto">
+              <source src="static/videos/realrobot_final/takeoff/H2_ours_takeoff.mp4" type='video/mp4; codecs="avc1.42C01F"'>
+            </video>
+          </div>
+        </div>
       </div>
     </div>
 
