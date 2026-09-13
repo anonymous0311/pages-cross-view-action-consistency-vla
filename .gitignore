@@ -1,2 +1,7 @@
 .DS_store
 .idea
+
+# Keep supplied raw rollout recordings local; publish the compressed media copies.
+/static/videos/page2_success/
+/static/videos/page2_failure/
+/static/videos/page5_comparison/

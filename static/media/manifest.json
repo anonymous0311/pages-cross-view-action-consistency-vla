@@ -1,0 +1,266 @@
+[
+  {
+    "source": "static/videos/page2_failure/C0+/01_C0running_03_nominal_only_camera_2.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C0+",
+    "src": "static/media/4191cf4195a5.mp4",
+    "poster": "static/media/4191cf4195a5.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C0+/02_C0running_04_nominal_only_camera_2.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C0+",
+    "src": "static/media/cf8ea495589b.mp4",
+    "poster": "static/media/cf8ea495589b.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C0+/03_C0running_05_nominal_only_camera_2.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C0+",
+    "src": "static/media/b7e75a36b2a9.mp4",
+    "poster": "static/media/b7e75a36b2a9.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C0-C1/01_C0running_03_nominal_only_camera_1.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C0-C1",
+    "src": "static/media/835997e6bac9.mp4",
+    "poster": "static/media/835997e6bac9.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C0-C1/02_C0running_04_nominal_only_camera_1.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C0-C1",
+    "src": "static/media/e21e43dbb6ce.mp4",
+    "poster": "static/media/e21e43dbb6ce.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C0-C1/03_C0running_05_nominal_only_camera_1.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C0-C1",
+    "src": "static/media/3fa59e1752f5.mp4",
+    "poster": "static/media/3fa59e1752f5.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C1+/01_C1_01_cv_loss_camera_1.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C1+",
+    "src": "static/media/5c35e31d500d.mp4",
+    "poster": "static/media/5c35e31d500d.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C1+/02_C1_02_cv_loss_camera_1.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C1+",
+    "src": "static/media/14df0a774da8.mp4",
+    "poster": "static/media/14df0a774da8.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C1+/03_C1_03_cv_loss_camera_1.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C1+",
+    "src": "static/media/59ab880bc20a.mp4",
+    "poster": "static/media/59ab880bc20a.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C1-C2/01_C1_01_cv_loss_camera_2.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C1-C2",
+    "src": "static/media/beac63a4e8c9.mp4",
+    "poster": "static/media/beac63a4e8c9.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C1-C2/02_C1_02_cv_loss_camera_2.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C1-C2",
+    "src": "static/media/bd21b5c440be.mp4",
+    "poster": "static/media/bd21b5c440be.jpg"
+  },
+  {
+    "source": "static/videos/page2_failure/C1-C2/03_C1_03_cv_loss_camera_2.mp4",
+    "group": "page2_failure",
+    "method": null,
+    "camera": "C1-C2",
+    "src": "static/media/a40ffaaf2c3e.mp4",
+    "poster": "static/media/a40ffaaf2c3e.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C0/01_C1running_01_fm_only_camera_4.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C0",
+    "src": "static/media/501364431bff.mp4",
+    "poster": "static/media/501364431bff.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C0/02_C1running_02_fm_only_camera_4.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C0",
+    "src": "static/media/5b8b8d25ad82.mp4",
+    "poster": "static/media/5b8b8d25ad82.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C0/03_C1running_04_fm_only_camera_4.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C0",
+    "src": "static/media/3f333ea37811.mp4",
+    "poster": "static/media/3f333ea37811.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C1/01_C2running_01_fm_only_camera_1.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C1",
+    "src": "static/media/2e34802f95f0.mp4",
+    "poster": "static/media/2e34802f95f0.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C1/02_C2running_04_fm_only_camera_1.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C1",
+    "src": "static/media/2cd0d06e3c8f.mp4",
+    "poster": "static/media/2cd0d06e3c8f.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C1/03_C2running_03_fm_only_camera_1.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C1",
+    "src": "static/media/7fe41a9b8acf.mp4",
+    "poster": "static/media/7fe41a9b8acf.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C2/01_C1running_01_fm_only_camera_3.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C2",
+    "src": "static/media/4ebbf1ecca20.mp4",
+    "poster": "static/media/4ebbf1ecca20.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C2/02_C1running_02_fm_only_camera_3.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C2",
+    "src": "static/media/ae82eb948719.mp4",
+    "poster": "static/media/ae82eb948719.jpg"
+  },
+  {
+    "source": "static/videos/page2_success/C2/03_C1running_04_fm_only_camera_3.mp4",
+    "group": "page2_success",
+    "method": null,
+    "camera": "C2",
+    "src": "static/media/a2fb7427a2c3.mp4",
+    "poster": "static/media/a2fb7427a2c3.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/nominal_only/C0+/01_C2running_09_nominal_only_camera_2.mp4",
+    "group": "page5_comparison",
+    "method": "nominal_only",
+    "camera": "C0+",
+    "src": "static/media/4893f13db11d.mp4",
+    "poster": "static/media/4893f13db11d.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/nominal_only/C0-C1/01_C2running_04_nominal_only_camera_4.mp4",
+    "group": "page5_comparison",
+    "method": "nominal_only",
+    "camera": "C0-C1",
+    "src": "static/media/6fe462961f9a.mp4",
+    "poster": "static/media/6fe462961f9a.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/nominal_only/C1+/01_C1_03_cv_loss_camera_1.mp4",
+    "group": "page5_comparison",
+    "method": "nominal_only",
+    "camera": "C1+",
+    "src": "static/media/fc284858cfb0.mp4",
+    "poster": "static/media/fc284858cfb0.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/nominal_only/C1-C2/01_C0-C1_08_nominal_only_camera_3.mp4",
+    "group": "page5_comparison",
+    "method": "nominal_only",
+    "camera": "C1-C2",
+    "src": "static/media/0dc917592ad2.mp4",
+    "poster": "static/media/0dc917592ad2.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_consistency/C0+/01_C2running_09_cv_loss_camera_2.mp4",
+    "group": "page5_comparison",
+    "method": "paired_consistency",
+    "camera": "C0+",
+    "src": "static/media/2f09f0f3de1d.mp4",
+    "poster": "static/media/2f09f0f3de1d.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_consistency/C0-C1/01_C2running_02_cv_loss_camera_4.mp4",
+    "group": "page5_comparison",
+    "method": "paired_consistency",
+    "camera": "C0-C1",
+    "src": "static/media/885ceb5a7868.mp4",
+    "poster": "static/media/885ceb5a7868.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_consistency/C1+/01_C1_05_cv_loss_camera_1.mp4",
+    "group": "page5_comparison",
+    "method": "paired_consistency",
+    "camera": "C1+",
+    "src": "static/media/70a97667e376.mp4",
+    "poster": "static/media/70a97667e376.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_consistency/C1-C2/01_C1_08_cv_loss_camera_3.mp4",
+    "group": "page5_comparison",
+    "method": "paired_consistency",
+    "camera": "C1-C2",
+    "src": "static/media/3e9fd0c1ff5d.mp4",
+    "poster": "static/media/3e9fd0c1ff5d.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_only/C0+/01_C2running_09_fm_only_camera_2.mp4",
+    "group": "page5_comparison",
+    "method": "paired_only",
+    "camera": "C0+",
+    "src": "static/media/474c02a18f5a.mp4",
+    "poster": "static/media/474c02a18f5a.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_only/C0-C1/01_C2running_04_fm_only_camera_4.mp4",
+    "group": "page5_comparison",
+    "method": "paired_only",
+    "camera": "C0-C1",
+    "src": "static/media/1853e79e3743.mp4",
+    "poster": "static/media/1853e79e3743.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_only/C1+/01_C1_04_cv_loss_camera_1.mp4",
+    "group": "page5_comparison",
+    "method": "paired_only",
+    "camera": "C1+",
+    "src": "static/media/375f16b6c2bf.mp4",
+    "poster": "static/media/375f16b6c2bf.jpg"
+  },
+  {
+    "source": "static/videos/page5_comparison/paired_only/C1-C2/01_C0-C1_08_fm_only_camera_3.mp4",
+    "group": "page5_comparison",
+    "method": "paired_only",
+    "camera": "C1-C2",
+    "src": "static/media/882980274cf7.mp4",
+    "poster": "static/media/882980274cf7.jpg"
+  }
+]
